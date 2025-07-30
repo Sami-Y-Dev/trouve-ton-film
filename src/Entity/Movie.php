@@ -20,7 +20,7 @@ class Movie
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $sypnosis = null;
+    private ?string $synopsis = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $dateSortie = null;
@@ -64,14 +64,14 @@ class Movie
         return $this;
     }
 
-    public function getSypnosis(): ?string
+    public function getSynopsis(): ?string
     {
-        return $this->sypnosis;
+        return $this->synopsis;
     }
 
-    public function setSypnosis(string $sypnosis): static
+    public function setSynopsis(string $synopsis): static
     {
-        $this->sypnosis = $sypnosis;
+        $this->synopsis = $synopsis;
 
         return $this;
     }
@@ -121,7 +121,6 @@ class Movie
     public function removeAvi(Avis $avi): static
     {
         if ($this->avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
             if ($avi->getMovie() === $this) {
                 $avi->setMovie(null);
             }
