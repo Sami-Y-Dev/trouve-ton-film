@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un avis{% endblock %}
+
+{% block body %}
+    <h1>Laisser un avis pour "{{ movie.title }}"</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.contenu) }}
+        {{ form_row(form.note) }}
+        <button class="btn btn-primary">Envoyer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('movie_detail', {'id': movie.id}) }}">← Retour au film</a>
+{% endblock %}

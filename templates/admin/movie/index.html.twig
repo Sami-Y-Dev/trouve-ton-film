@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block body %}
+    <h2>Liste des films</h2>
+
+    <a href="{{ path('admin_movie_new') }}">Ajouter un nouveau film</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.id }}</td>
+                    <td>{{ movie.title }}</td>
+                    <td>
+                        <a href="{{ path('admin_movie_edit', {'id': movie.id}) }}">Modifier</a>
+
+                        <form method="post" action="{{ path('admin_movie_delete', {'id': movie.id}) }}" style="display:inline-block;" onsubmit="return confirm('Supprimer ce film ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ movie.id) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucun film trouvé.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

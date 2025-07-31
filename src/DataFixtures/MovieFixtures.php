@@ -13,12 +13,11 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-
+        $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 10; $i++) {
             $movie = new Movie();
             $movie->setTitle($faker->sentence());
-            $movie->setSynopsis($faker->paragraph()); 
+            $movie->setSynopsis($faker->paragraph());
             $movie->setDateSortie($faker->dateTimeBetween('-10 years', 'now'));
 
             $genre = $this->getReference('genre_' . $faker->numberBetween(0, 4), Genre::class);
@@ -30,6 +29,8 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
+
+
     }
 
     public function getDependencies(): array

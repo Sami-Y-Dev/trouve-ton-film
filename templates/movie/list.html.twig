@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block body %}
+<h1>Liste des films</h1>
+
+<ul>
+    {% for movie in movies %}
+        <li>
+            <a href="{{ path('movie_detail', {id: movie.id}) }}">{{ movie.title }}</a>
+        </li>
+    {% else %}
+        <li>Aucun film trouvé.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

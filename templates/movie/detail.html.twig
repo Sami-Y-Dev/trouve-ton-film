@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block body %}
+<h1>{{ movie.title }}</h1>
+
+<p><strong>Genre :</strong> {{ movie.genre.name }}</p>
+<p><strong>Date de sortie :</strong> {{ movie.dateSortie|date('d/m/Y') }}</p>
+<p><strong>Synopsis :</strong></p>
+<p>{{ movie.synopsis }}</p>
+
+<h2>Avis des utilisateurs :</h2>
+{% for avis in movie.avis %}
+    <div class="mb-3 p-3 border rounded">
+        <strong>{{ avis.user.email }}</strong> — note : {{ avis.note }}/5 <br>
+        <em>{{ avis.dateCreation|date('d/m/Y H:i') }}</em>
+        <p>{{ avis.contenu }}</p>
+    </div>
+{% else %}
+    <p>Aucun avis pour ce film.</p>
+{% endfor %}
+
+{% if is_granted('ROLE_USER') %}
+    <a href="{{ path('add_avis', {'id': movie.id}) }}" class="btn btn-success">Ajouter un avis</a>
+{% endif %}
+
+<a href="{{ path('movie_list') }}">Retour à la liste</a>
+{% endblock %}
